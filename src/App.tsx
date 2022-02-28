@@ -1,7 +1,11 @@
+import Theme from './theme/ThemeApp';
+
 function App() {
-  return (
-    <h1>App</h1>
-  );
+    return (
+        <Theme>
+            <h1>App</h1>
+        </Theme>
+    );
 }
 
 export default App;
