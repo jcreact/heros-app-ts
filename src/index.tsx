@@ -7,11 +7,11 @@ import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 import './index.css';
 
-import App from './App';
+import { HerosApp } from './HerosApp';
 
 ReactDOM.render(
     <React.StrictMode>
-        <App />
+        <HerosApp />
     </React.StrictMode>,
     document.getElementById('root')
 );

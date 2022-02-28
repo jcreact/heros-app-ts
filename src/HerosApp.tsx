@@ -1,6 +1,6 @@
 import Theme from './theme/ThemeApp';
 
-function App() {
+export function HerosApp() {
     return (
         <Theme>
             <h1>App</h1>
@@ -8,4 +8,4 @@ function App() {
     );
 }
 
-export default App;
+export default HerosApp;
