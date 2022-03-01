@@ -9,7 +9,6 @@ import {
     CardMedia,
     Theme,
     Typography,
-    Stack,
 } from '@mui/material';
 import { NavLink } from 'react-router-dom';
 import { Hero, Publishers } from '../../interfaces/interfaces';
@@ -18,7 +17,7 @@ interface HeroCardProps {
     hero: Hero;
 }
 
-export const HeroCard = ({
+export const HeroItem = ({
     hero: { id, name, publisher, alterEgo, firstAppearance, characters },
 }: HeroCardProps) => {
     const avatarAcronym = name

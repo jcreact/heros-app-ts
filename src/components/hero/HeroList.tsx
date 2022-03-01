@@ -1,5 +1,5 @@
 import { Hero, Publisher } from '../../interfaces/interfaces';
-import { HeroCard } from './HeroCard';
+import { HeroItem } from './HeroItem';
 import { Box, Stack, Theme, Typography } from '@mui/material';
 import { getHerosByPublisher } from '../../helpers/heros.helper';
 
@@ -31,7 +31,7 @@ export const HeroList = ({ publisher, sort = false }: HeroListProps) => {
                 }}
             >
                 {heros.sort(compareByName).map((hero) => (
-                    <HeroCard key={hero.id} hero={hero} />
+                    <HeroItem key={hero.id} hero={hero} />
                 ))}
             </Box>
         </>
