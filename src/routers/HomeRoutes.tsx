@@ -29,7 +29,7 @@ export const HomeRoutes = () => {
                         <Route path="marvel" element={<MarvelScreen />} />
                         <Route path="dc" element={<DcScreen />} />
                         <Route path="search" element={<SearchScreen />} />
-                        <Route path="hero" element={<HeroScreen />} />
+                        <Route path="hero/:id" element={<HeroScreen />} />
 
                         <Route path="/" element={<MarvelScreen />} />
                     </Routes>

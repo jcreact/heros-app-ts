@@ -1,3 +1,4 @@
+import { NavLink } from 'react-router-dom';
 import {
     Avatar,
     Button,
@@ -10,15 +11,20 @@ import {
     Theme,
     Typography,
 } from '@mui/material';
-import { NavLink } from 'react-router-dom';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+
 import { Hero, Publishers } from '../../interfaces/interfaces';
 
 interface HeroCardProps {
     hero: Hero;
+    actions?: JSX.Element | JSX.Element[];
+    chip?: JSX.Element;
 }
 
 export const HeroItem = ({
     hero: { id, name, publisher, alterEgo, firstAppearance, characters },
+    actions,
+    chip,
 }: HeroCardProps) => {
     const avatarAcronym = name
         .match(/\b(\w)/g)
@@ -50,7 +56,12 @@ export const HeroItem = ({
                         {avatarAcronym}
                     </Avatar>
                 }
-                title={name}
+                title={
+                    <Typography variant="h5">
+                        <span>{name}</span>
+                        {chip && chip}
+                    </Typography>
+                }
                 subheader={alterEgo}
             />
 
@@ -66,23 +77,30 @@ export const HeroItem = ({
             </Box>
 
             <CardContent sx={{ flexGrow: 1 }}>
-                <Typography>{firstAppearance}</Typography>
+                <Typography>
+                    <b style={{ textTransform: 'capitalize' }}>Primera Aparición: </b>
+                    {firstAppearance}
+                </Typography>
                 {alterEgo !== characters && (
                     <Typography variant="caption" color={({ palette }: Theme) => palette.grey[600]}>
                         {characters}
                     </Typography>
                 )}
             </CardContent>
-            <CardActions>
-                <Button
-                    aria-label="learn more"
-                    component={NavLink}
-                    to={`/hero/${id}`}
-                    color="info"
-                    //variant="contained"
-                >
-                    Ver más...
-                </Button>
+            <CardActions sx={{ marginX: 1, marginBottom: 1 }}>
+                {actions ? (
+                    actions
+                ) : (
+                    <Button
+                        aria-label="learn more"
+                        component={NavLink}
+                        to={`/hero/${id}`}
+                        color="info"
+                    >
+                        Ver más
+                        <ChevronRightIcon />
+                    </Button>
+                )}
             </CardActions>
         </Card>
     );
