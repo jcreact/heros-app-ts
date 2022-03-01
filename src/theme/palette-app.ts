@@ -1,5 +1,5 @@
 import { PaletteMode } from '@mui/material';
-import { deepPurple, pink, indigo, amber } from '@mui/material/colors';
+import { deepPurple, pink, indigo, amber, grey } from '@mui/material/colors';
 
 const getPaletteSystem = (mode: PaletteMode) => ({
     palette: {
@@ -8,6 +8,9 @@ const getPaletteSystem = (mode: PaletteMode) => ({
             ? {
                   primary: indigo,
                   secondary: amber,
+                  background: {
+                      default: grey[200],
+                  },
               }
             : {
                   primary: deepPurple,

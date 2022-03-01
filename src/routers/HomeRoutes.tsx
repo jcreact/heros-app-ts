@@ -23,7 +23,7 @@ export const HomeRoutes = () => {
                     <Navbar />
                 </Box>
 
-                <Box component="main" sx={{ gridArea: 'main' }}>
+                <Box component="main" sx={{ gridArea: 'main' }} m={1}>
                     <Toolbar />
                     <Routes>
                         <Route path="marvel" element={<MarvelScreen />} />

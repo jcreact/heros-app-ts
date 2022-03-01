@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { AppBar, Toolbar, Typography, Box, Button, IconButton, Theme } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import { Brightness4Outlined, Brightness5Outlined } from '@mui/icons-material';
@@ -25,10 +25,11 @@ const ButtonLink = (props: any) => {
 export const Navbar = () => {
     const theme = useTheme();
     const { toggleColorMode } = useContext(ColorModeContext);
+    const navigate = useNavigate();
 
     const handleLogout = () => {
-        // TODO: Logout
-        console.log('Logout');
+        // TODO: Logout logic
+        navigate('/login', { replace: true });
     };
 
     return (
