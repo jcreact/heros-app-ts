@@ -1,3 +1,10 @@
+import { HeroList } from '../hero/HeroList';
+import { Publishers } from '../../interfaces/interfaces';
+
 export const MarvelScreen = () => {
-    return <div>Marvel Screen</div>;
+    return (
+        <>
+            <HeroList publisher={Publishers.MARVEL} sort />
+        </>
+    );
 };
