@@ -2,6 +2,7 @@ import { Hero, Publisher } from '../../interfaces/interfaces';
 import { HeroItem } from './HeroItem';
 import { Box, Stack, Theme, Typography } from '@mui/material';
 import { getHerosByPublisher } from '../../helpers/heros.helper';
+import { useMemo } from 'react';
 
 interface HeroListProps {
     publisher: Publisher;
@@ -9,7 +10,7 @@ interface HeroListProps {
 }
 
 export const HeroList = ({ publisher, sort = false }: HeroListProps) => {
-    const heros = getHerosByPublisher(publisher);
+    const heros = useMemo(() => getHerosByPublisher(publisher), [publisher]);
 
     const compareByName = (a: Hero, b: Hero) => (sort ? a.name.localeCompare(b.name) : 1);
 
