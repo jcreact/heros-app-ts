@@ -1,4 +1,9 @@
-export type Publisher = 'DC Comics' | 'Marvel Comics';
+export const enum Publishers {
+    MARVEL = 'Marvel Comics',
+    DC = 'DC Comics',
+}
+
+export type Publisher = 'Marvel Comics' | 'DC Comics';
 
 export interface Hero {
     id: string;
