@@ -1,10 +1,11 @@
-import Theme from './theme/ThemeApp';
+import ThemeApp from './theme/ThemeApp';
+import { AppRouter } from './routers/AppRouter';
 
 export function HerosApp() {
     return (
-        <Theme>
-            <h1>App</h1>
-        </Theme>
+        <ThemeApp>
+            <AppRouter />
+        </ThemeApp>
     );
 }
 
