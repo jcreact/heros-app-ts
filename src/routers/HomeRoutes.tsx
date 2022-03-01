@@ -1,5 +1,5 @@
 import { Routes, Route } from 'react-router-dom';
-import { Box, Toolbar } from '@mui/material';
+import { Box, Theme, Toolbar } from '@mui/material';
 
 import { Navbar } from '../components/ui/Navbar';
 import { MarvelScreen } from '../components/marvel/MarvelScreen';
@@ -15,15 +15,15 @@ export const HomeRoutes = () => {
                     height: '100vh',
                     display: 'grid',
                     gridTemplateColumns: 'auto 1fr',
-                    gridTemplateRows: 'auto 1fr',
-                    gridTemplateAreas: `'header header' 'sidebar main'`,
+                    gridTemplateRows: 'auto 1fr auto',
+                    gridTemplateAreas: `'header header' 'sidebar main' 'footer footer'`,
                 }}
             >
                 <Box sx={{ gridArea: 'header' }}>
                     <Navbar />
                 </Box>
 
-                <Box component="main" sx={{ gridArea: 'main' }} m={1}>
+                <Box component="main" sx={{ gridArea: 'main' }} m={2}>
                     <Toolbar />
                     <Routes>
                         <Route path="marvel" element={<MarvelScreen />} />
@@ -34,6 +34,8 @@ export const HomeRoutes = () => {
                         <Route path="/" element={<MarvelScreen />} />
                     </Routes>
                 </Box>
+
+                <Box sx={{ gridArea: 'footer' }} height={(theme: Theme) => theme.spacing(1)} />
             </Box>
         </>
     );
