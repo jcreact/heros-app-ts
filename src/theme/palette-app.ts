@@ -1,10 +1,11 @@
-import { PaletteMode } from '@mui/material';
 import { deepPurple, pink, indigo, amber, grey } from '@mui/material/colors';
 
-const getPaletteSystem = (mode: PaletteMode) => ({
+import { PaletteModeType } from './ThemeApp';
+
+const getPaletteSystem = (mode: PaletteModeType, prefersDarkMode: boolean) => ({
     palette: {
-        mode,
-        ...(mode === 'light'
+        mode: mode === 'auto' ? (prefersDarkMode ? 'dark' : 'light') : mode,
+        ...(mode === 'light' || (mode === 'auto' && !prefersDarkMode)
             ? {
                   primary: indigo,
                   secondary: amber,

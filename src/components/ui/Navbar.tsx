@@ -1,7 +1,11 @@
 import { NavLink, useNavigate } from 'react-router-dom';
 import { AppBar, Toolbar, Typography, Box, Button, IconButton, Theme } from '@mui/material';
-import { useTheme } from '@mui/material/styles';
-import { Brightness4Outlined, Brightness5Outlined } from '@mui/icons-material';
+//import { useTheme } from '@mui/material/styles';
+import {
+    Brightness4Outlined,
+    Brightness5Outlined,
+    BrightnessAutoOutlined,
+} from '@mui/icons-material';
 
 import { ColorModeContext } from '../../theme/ThemeApp';
 import { useContext } from 'react';
@@ -23,8 +27,7 @@ const ButtonLink = (props: any) => {
 };
 
 export const Navbar = () => {
-    const theme = useTheme();
-    const { toggleColorMode } = useContext(ColorModeContext);
+    const { toggleColorMode, mode } = useContext(ColorModeContext);
     const navigate = useNavigate();
 
     const handleLogout = () => {
@@ -58,7 +61,9 @@ export const Navbar = () => {
                 </Typography>
 
                 <IconButton onClick={toggleColorMode} color="inherit">
-                    {theme.palette.mode === 'dark' ? (
+                    {mode === 'auto' ? (
+                        <BrightnessAutoOutlined />
+                    ) : mode === 'dark' ? (
                         <Brightness5Outlined />
                     ) : (
                         <Brightness4Outlined />

@@ -1,5 +1,11 @@
 import { useState, useMemo, createContext } from 'react';
-import { createTheme, responsiveFontSizes, CssBaseline, PaletteMode } from '@mui/material';
+import {
+    createTheme,
+    responsiveFontSizes,
+    CssBaseline,
+    PaletteMode,
+    useMediaQuery,
+} from '@mui/material';
 import { ThemeProvider } from '@mui/material/styles';
 
 import getPaletteSystem from './palette-app';
@@ -8,24 +14,33 @@ interface AppThemeProps {
     children: JSX.Element | JSX.Element[];
 }
 
-export const ColorModeContext = createContext({ toggleColorMode: () => {} });
+export type PaletteModeType = PaletteMode | 'auto';
+
+export const ColorModeContext = createContext({
+    mode: 'auto' as PaletteModeType,
+    toggleColorMode: () => {},
+});
 
 export default function AppTheme({ children }: AppThemeProps) {
-    const [mode, setMode] = useState<PaletteMode>('dark');
+    const [mode, setMode] = useState<PaletteModeType>('auto');
+    const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
 
     const colorMode = useMemo(
-        () => ({
-            toggleColorMode: () => {
-                setMode((prevMode: PaletteMode) => (prevMode === 'light' ? 'dark' : 'light'));
-            },
-        }),
+        () => () => {
+            setMode((prevMode: PaletteModeType) =>
+                prevMode === 'auto' ? 'dark' : prevMode === 'dark' ? 'light' : 'auto'
+            );
+        },
         []
     );
 
-    const theme = useMemo(() => responsiveFontSizes(createTheme(getPaletteSystem(mode))), [mode]);
+    const theme = useMemo(
+        () => responsiveFontSizes(createTheme(getPaletteSystem(mode, prefersDarkMode))),
+        [mode, prefersDarkMode]
+    );
 
     return (
-        <ColorModeContext.Provider value={colorMode}>
+        <ColorModeContext.Provider value={{ mode, toggleColorMode: colorMode }}>
             <ThemeProvider theme={theme}>
                 <CssBaseline />
                 {children}
