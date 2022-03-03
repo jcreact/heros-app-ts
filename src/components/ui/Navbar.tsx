@@ -1,6 +1,6 @@
+import { useContext } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { AppBar, Toolbar, Typography, Box, Button, IconButton, Theme } from '@mui/material';
-//import { useTheme } from '@mui/material/styles';
 import {
     Brightness4Outlined,
     Brightness5Outlined,
@@ -8,7 +8,8 @@ import {
 } from '@mui/icons-material';
 
 import { ColorModeContext } from '../../theme/ThemeApp';
-import { useContext } from 'react';
+import { AuthContext } from '../../auth/authContext';
+import { ActionTypes } from '../../types/types';
 
 const ButtonLink = (props: any) => {
     return (
@@ -28,10 +29,11 @@ const ButtonLink = (props: any) => {
 
 export const Navbar = () => {
     const { toggleColorMode, mode } = useContext(ColorModeContext);
+    const { user, dispatch } = useContext(AuthContext);
     const navigate = useNavigate();
 
     const handleLogout = () => {
-        // TODO: Logout logic
+        dispatch({ type: ActionTypes.LOGOUT });
         navigate('/login', { replace: true });
     };
 
@@ -57,7 +59,7 @@ export const Navbar = () => {
                 </Box>
 
                 <Typography variant="subtitle2" mr={1}>
-                    José Palma
+                    {user?.name}
                 </Typography>
 
                 <IconButton onClick={toggleColorMode} color="inherit">

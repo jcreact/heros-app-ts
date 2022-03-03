@@ -8,7 +8,6 @@ export interface AuthState {
 export const authReducer = (state: AuthState, action: AuthActions): AuthState => {
     switch (action.type) {
         case ActionTypes.LOGIN:
-            console.log('login');
             return {
                 ...state,
                 name: action.payload.name,

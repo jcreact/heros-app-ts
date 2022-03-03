@@ -1,13 +1,33 @@
-import { Button, Grid, Paper, TextField, Theme, Typography } from '@mui/material';
-import { Box } from '@mui/system';
-import { grey } from '@mui/material/colors';
 import { useNavigate } from 'react-router-dom';
+import { useContext } from 'react';
+import { Button, Grid, Paper, TextField, Theme, Typography, Box } from '@mui/material';
+import { grey } from '@mui/material/colors';
+
+import { AuthContext } from '../../auth/authContext';
+import { useForm } from '../../hooks/useForm';
+import { ActionTypes } from '../../types/types';
+
+interface LoginForm {
+    name: string;
+    password: string;
+}
 
 export const LoginScreen = () => {
+    const {
+        formValues: { name, password },
+        handleChange,
+    } = useForm<LoginForm>({
+        name: 'jcpalma',
+        password: '12345',
+    });
+    const { dispatch } = useContext(AuthContext);
     const navigate = useNavigate();
 
     const handleLogin = () => {
-        // TODO: Login logic
+        dispatch({
+            type: ActionTypes.LOGIN,
+            payload: { name },
+        });
         navigate('/marvel', { replace: true });
     };
 
@@ -42,12 +62,21 @@ export const LoginScreen = () => {
                         }}
                         width="100%"
                     >
-                        <TextField fullWidth label="Usuario" defaultValue="jcpalma" autoFocus />
+                        <TextField
+                            fullWidth
+                            label="Usuario"
+                            name="name"
+                            onChange={handleChange}
+                            value={name}
+                            autoFocus
+                        />
                         <TextField
                             type="password"
                             fullWidth
                             label="Contraseña"
-                            defaultValue="123456"
+                            name="password"
+                            onChange={handleChange}
+                            value={password}
                         />
                         <Button variant="contained" onClick={handleLogin}>
                             Ingresar
