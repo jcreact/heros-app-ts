@@ -1,7 +1,16 @@
 import { useMemo } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { Fade, Grid, InputAdornment, TextField, Theme, Typography } from '@mui/material';
+import {
+    Fade,
+    Grid,
+    IconButton,
+    InputAdornment,
+    TextField,
+    Theme,
+    Typography,
+} from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
+import CancelRoundedIcon from '@mui/icons-material/CancelRounded';
 import queryString from 'query-string';
 
 import { useForm } from '../../hooks/useForm';
@@ -15,11 +24,23 @@ interface SearchForm {
 export const SearchScreen = () => {
     const navigate = useNavigate();
     const location = useLocation();
-    const { q = '' } = queryString.parse(location.search) as { q: string };
+    const query = queryString.parse(location.search);
+    const q = query.q === null ? '' : (query.q as string);
 
-    const { formValues, handleChange } = useForm<SearchForm>({ searchText: q });
-    const { searchText } = formValues;
+    const {
+        formValues: { searchText },
+        handleChange,
+        clear,
+    } = useForm<SearchForm>({
+        searchText: q,
+    });
+
     const heros = useMemo(() => getHerosByName(q), [q]);
+
+    const clearSearch = () => {
+        clear('searchText');
+        navigate('?q=');
+    };
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -38,11 +59,21 @@ export const SearchScreen = () => {
                         autoComplete="off"
                         value={searchText}
                         onChange={handleChange}
+                        onKeyUp={(e) => {
+                            e.code === 'Escape' && clearSearch();
+                        }}
                         autoFocus
                         InputProps={{
                             startAdornment: (
                                 <InputAdornment position="start">
                                     <SearchIcon />{' '}
+                                </InputAdornment>
+                            ),
+                            endAdornment: searchText && (
+                                <InputAdornment position="end">
+                                    <IconButton size="small" onClick={(_) => clearSearch()}>
+                                        <CancelRoundedIcon />
+                                    </IconButton>
                                 </InputAdornment>
                             ),
                         }}

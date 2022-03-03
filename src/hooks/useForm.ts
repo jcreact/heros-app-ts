@@ -26,10 +26,13 @@ export const useForm = <T>(state: T) => {
 
     const isTouched = (name: keyof T) => touched[name];
 
+    const clear = (name: keyof T) => setFormValues({ ...formValues, [name]: '' });
+
     return {
         formValues,
         handleChange,
         formReset,
+        clear,
         isTouched,
     };
 };
