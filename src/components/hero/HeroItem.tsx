@@ -45,6 +45,7 @@ export const HeroItem = ({
                     display: 'flex',
                     flexDirection: 'column',
                     justifyContent: 'start',
+                    height: '100%',
                 }}
             >
                 <CardHeader
