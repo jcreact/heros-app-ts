@@ -40,7 +40,7 @@ export const HeroScreen = () => {
         <Grid
             sx={{
                 display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 35%))',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1/2fr))',
                 gridGap: '1rem',
                 justifyContent: 'center',
             }}
