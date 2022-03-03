@@ -10,7 +10,7 @@ export const getHeroById = (id: string): Hero | undefined => {
 };
 
 export const getHerosByName = (term: string): Hero[] => {
-    if (!term.trim()) {
+    if (!term || !term?.trim()) {
         return [];
     }
     term = term.trim().toLowerCase();
