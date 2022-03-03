@@ -28,7 +28,8 @@ export const LoginScreen = () => {
             type: ActionTypes.LOGIN,
             payload: { name },
         });
-        navigate('/marvel', { replace: true });
+        const path = localStorage.getItem('lastPath') || '/marvel';
+        navigate(path, { replace: true });
     };
 
     return (

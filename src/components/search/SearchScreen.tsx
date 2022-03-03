@@ -32,14 +32,14 @@ export const SearchScreen = () => {
         handleChange,
         clear,
     } = useForm<SearchForm>({
-        searchText: q,
+        searchText: q || '',
     });
 
     const heros = useMemo(() => getHerosByName(q), [q]);
 
     const clearSearch = () => {
         clear('searchText');
-        navigate('?q=');
+        navigate('');
     };
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
