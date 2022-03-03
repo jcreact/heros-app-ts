@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useMemo, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import {
     Fade,
@@ -25,20 +25,29 @@ export const SearchScreen = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const query = queryString.parse(location.search);
-    const q = query.q === null ? '' : (query.q as string);
+    const q =
+        query.q === null || !query.q
+            ? localStorage.getItem('searchText') || ''
+            : (query.q as string);
 
     const {
         formValues: { searchText },
         handleChange,
         clear,
     } = useForm<SearchForm>({
-        searchText: q || '',
+        searchText: q,
     });
+
+    useEffect(() => {
+        q && navigate(`?q=${q}`);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     const heros = useMemo(() => getHerosByName(q), [q]);
 
     const clearSearch = () => {
         clear('searchText');
+        localStorage.setItem('searchText', '');
         navigate('');
     };
 
@@ -46,6 +55,10 @@ export const SearchScreen = () => {
         event.preventDefault();
         navigate(`?q=${searchText}`);
     };
+
+    useEffect(() => {
+        localStorage.setItem('searchText', q);
+    }, [q]);
 
     return (
         <>
